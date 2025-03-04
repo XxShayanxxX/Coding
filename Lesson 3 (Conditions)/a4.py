@@ -6,4 +6,4 @@ print(current_time)
 import calendar
 
 print
-print("\n", calendar.calendar(2025))
+print("\n", calendar.calendar(2027))
