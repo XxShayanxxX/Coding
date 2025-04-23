@@ -1,0 +1,12 @@
+START
+    SET correct_number TO random number between 1 and 10
+    DISPLAY "Guess a number between 1 and 10:"
+    GET user_input
+
+    IF user_input = correct_number THEN
+        DISPLAY "You guessed correctly."
+    ELSE
+        DISPLAY "Wrong guess. The correct number was " + correct_number
+    ENDIF
+END
+
