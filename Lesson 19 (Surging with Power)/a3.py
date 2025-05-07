@@ -5,7 +5,7 @@ def computerPower(x,y):
     while y > 0:
         if y % 2 == 0:
             x = x* x
-            y >> = 1
+            y >>= 1
 
         else:
             result = result * x 
