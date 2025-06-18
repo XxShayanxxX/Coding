@@ -1,17 +1,32 @@
-def numberofBits(n):
-    ones = 0 
-    zeros = 0 
+def equibrimPoint(arr):
+    leftsidesum = 0 
+    rightsidesum = 0 
+    n = len(arr)
 
 
-    while(n):
+    #Go to each indx of the array and check if it an equiliubrium point 
+    for i in range(n):
+        leftsidesum = 0 
+        rightsidesum = 0 
+         
 
-        if(n&1 == 1):
-            ones += 1
-        else:
-            zeros+=1
+         #get left sum 
+        for j in range(i):
+            leftsidesum += arr[j]
 
-        n >>= 1 
-    print("\n \nOnes =", ones,"\n Zeros", zeros)
+        #get right sum 
+        for j in range(i + 1,n):
+            rightsidesum += arr[j]
 
-number = int(input("Enter a number : "))
-numberofBits(number)
+
+        # if leftsum and rightsum are same , 
+        #then we are done 
+        if leftsidesum == rightsidesum:
+            return i 
+        
+
+    return -1
+
+arr = [-4,6,2,0,0,1,1]
+print("Element :", arr[equibrimPoint(arr)])
+           
