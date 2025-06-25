@@ -1,32 +1,38 @@
-#Print the index of subarry with given sum 
+#Program to perform binary search recursively
+def binaryseach(arr,l,r,x):
+    #Check if the length of array is greater than or equal to 0 
+    if r >=1:
 
-def subArraySUm(arr,n,sum_):
+        # find the mid element's index 
+        mid = l + (r-1) //2
+
+        #If element is present at the middle itself 
+        if arr[mid] == x:
+            return mid 
+        
+        # IF element is smaller check in left subarray 
+        elif arr[mid] > x:
+            return binaryseach(arr,l,mid-1,x)
+        
+        #Else check in right subarray 
+        else:
+            return binaryseach(arr,mid + 1,r , x )
+        
+    else : 
+
+        #Element is not present in the array 
+        return - 1
     
-    for i in range(n):
-        curr_sum = arr[i]
+#Drivers code 
+arr = [2,3,4,10,40]
+x = 10 
 
-        #Sum of all subarrays starting with i 
-        j = i + 1
-        while j <= n:
-            if curr_sum == sum_ : 
-                print("Sum found between")
-                print("indexes % d and % d"%(i,j-1))
+#function call 
+result = binaryseach(arr,0,len(arr)-1,x)
 
-                return 1 
-            
-            if curr_sum > sum_ or j == n:
-                break
+if result != 1:
+    print("Element {} is present at index {}".format(x,result))
 
-            curr_sum + curr_sum + arr[j]
-            j += 1
-
-
-    print("No subarray found")
-    return n
-
-
-arr = [3,6,2,2,56,1,0,9]
-n = len(arr)
-sum_ = 10 
-subArraySUm(arr,n,sum_)
+else:
+    print("Element is not present in arrat")
 
