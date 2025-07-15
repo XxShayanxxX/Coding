@@ -1,33 +1,21 @@
-# FUnction to return the index if element is found 
-def binarysearch(arr,l,r,x):
+#Program for intersections sort
+A = [10,5,13,8,2]
+for i in range(1,len(A)):
 
-    while l <= r:
+    value = A[i]
 
-        mid  = l + (r-1) // 2
+    #Move elements of A[0,,,i-1],that are greater than value , to one position ahead of their current position
 
-        #Check if x is present at mid 
-        if arr[mid] == x:
-            return mid
-        
-        #IF x is greater,ignore left hand 
-        elif arr[mid] < x :
-            l = mid + 1 
+    j = i - 1
+    while j >= 0 and value <A[j]:
+        A[j+1] = A[j]
 
-        # If x is smaller,ignore right half 
-        else :
-            r = mid - 1
+        j -= 1
+        A[j+1] = value
 
-    # return -1 if element isnt found 
-    return - 1
 
-#Driver code 
-arr = [ 2,3,4,10,40]
-x = 10 
+    #Drivers code 
 
-# Function call
-result = binarysearch(arr,0,len(arr)-1,x)
-
-if result != -1:
-    print("Element {} is present at index {}".format(x,result))
-else:
-    print("ELement is not present in array")
+print("Sorted array :")
+for i in range(len(A)):
+    print("%d" %A[i],end =" ")

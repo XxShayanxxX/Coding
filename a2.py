@@ -1,19 +1,16 @@
-#build in function
-def compare(n1,n2):
-    return str(n1) + str(n2) + str(n1)
-
-#section sort 
-def largestnumber(nums):
-    for i in range(len(nums),0,-1):
-        tmp = 0 
-        for j in range(i):
-            if not compare(nums[j],nums[tmp]):
-                tmp = j 
-            nums[tmp],nums[i-1] = nums[i-1],nums[tmp]
-        return str(int("".join(map(str,nums))))
-    
+#Program to reverse the same array 
+A = [1,2,3,4,5,6]
+#intializing start and end 
+start = 0 
+end = len(A) - 1
+#reverse A from start to end 
+while start < end :
+    #swapping the elements of array to reverse it in same array 
+    #same array 
+    A[start],A[end] = A[end],A[start]
+    start += 1 
+    end -= 1 
 
 #Drivers code 
-arr = [3,30,34,5,12]
-print("given array : ",arr)
-print("Largest possible number :",largestnumber(arr))
+print("Reverse array is : ")
+print(A)
