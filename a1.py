@@ -1,21 +1,54 @@
-#Program for intersections sort
-A = [10,5,13,8,2]
-for i in range(1,len(A)):
+#Quick sort in python 
 
-    value = A[i]
+#function to find the partition position 
+def partition(A,low,high):
 
-    #Move elements of A[0,,,i-1],that are greater than value , to one position ahead of their current position
+    #choosing the right element as pivot 
+    pivot = A[high]
 
-    j = i - 1
-    while j >= 0 and value <A[j]:
-        A[j+1] = A[j]
+    #pointer for greater element 
+    i = low - 1
 
-        j -= 1
-        A[j+1] = value
+    #compare each element with pivot 
+    for j in range(low,high):
+        if A[j] <= pivot:
+            #if elements smaller than pivot is found 
+            #swap it with greater element pointed by i 
+            i = i + 1
+
+            #swappinf element i with element at j 
+            (A[i],A[j]) = (A[j],A[i])
+
+    #swap the pivot element with the greatest element specified by i 
+    (A[i+ 1],A[high]) = (A[high], A[i+1])
+
+    #return the position from where the partation is done 
+    return i + 1
+
+#function to perform quicksort 
+def quicksort(A,low,high):
+    if low < high:
 
 
-    #Drivers code 
+    #find pivot element such that 
+    #element smaller than the pivot are on the left 
+    #element greatert than the pivot are on the right 
+     pi = partition(A,low,high)
 
-print("Sorted array :")
-for i in range(len(A)):
-    print("%d" %A[i],end =" ")
+    #recursive call on the left side of pivot 
+     quicksort(A,low,pi - 1)
+
+     #recursive call ont he right side of pivot 
+     quicksort(A,pi+1,high)
+
+
+A = [4,6,23,34,7,0,2,34,4,5,6,7,32]
+print("unsorted array: ")
+print(A)
+
+n = len(A) - 1
+
+quicksort(A,0,n)
+
+print("sorted array: ")
+print(A)
