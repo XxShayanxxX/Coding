@@ -1,16 +1,30 @@
-#Program to reverse the same array 
-A = [1,2,3,4,5,6]
-#intializing start and end 
-start = 0 
-end = len(A) - 1
-#reverse A from start to end 
-while start < end :
-    #swapping the elements of array to reverse it in same array 
-    #same array 
-    A[start],A[end] = A[end],A[start]
-    start += 1 
-    end -= 1 
+def unionofArray(A1,A2,m,n):
+    i,j = 0,0 
+    while i < m and j < n:
+        if A1[i] < A2[j]:
+            print(A1[i],end =" ")
+            i += 1
+        elif A2[j] < A1[i]:
+            print(A2[j],end = " ")
+            j += 1
+        else:
+            print(A2[j],end = ' ')
+            j += 1
+            i += 1
 
-#Drivers code 
-print("Reverse array is : ")
-print(A)
+    #Remaining elements of greater sized array 
+    while i < m:
+        print(A1[i],end = " ")
+        i += 1
+
+    while j < n:
+        print(A2[j],end=" ")
+        j += 1
+        
+
+#Drivers code
+A1 = [1,2,8,9]
+A2 = [2,3,5,9]
+m = len(A1)
+n = len(A2)
+unionofArray(A1,A2,m,n)
