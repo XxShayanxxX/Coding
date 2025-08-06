@@ -35,13 +35,28 @@ class singlyLL:
 
         if(node1 != None and node2 != None):
 
-#if previous node to nodel is not none then, it will point to node2 
+#if previous node to node1 is not none then, it will point to node2 
             if(prevNode1 != None):
                 prevNode1.next = node2 
 
             else:
-                print("Swapping is not possible")
+                self.head = node2
 
+
+#if previous node to node2 us not none trhen,it will point to node 2 
+            if(prevNode2 != None):
+                prevNode2.next = node1
+
+            else:
+                self.head = node1
+
+
+            temp = node1.next;
+            node1.next = node2.next;
+            node2.next = temp;
+    
+        else : 
+            print("Swapping is not possible")
     def display(self):
         if self.head == None:
                 print("List is empty")
@@ -55,17 +70,16 @@ class singlyLL:
 #drivers code 
 l = singlyLL()
 n = node(10)
-l.head = n
+l.head = n 
 n1 = node(20)
 n.next = n1 
 n2 = node(30)
-n1.next = n2 
+n1.next = n2
 n3 = node(40)
 n2.next = n3 
-l.display()
-print(end ='\n')
+
+l.display
 l.swap(10,30)
 l.display()
-
 
             
