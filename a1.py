@@ -1,85 +1,19 @@
-class node:
-    def __init__(self,data):
-        self.data = data 
-        self.next = None #adress of the next node 
+#intitalizing matrices 
+x = [[1,2,3],
+     [4,5,6],
+     [7,8,9]]
 
-        
-class singlyLL:
-    def __init__(self):
-        self.head = None
-
-    #swap will swap the given two nodes 
-    def swap(self,n1,n2):
-        prevNode1 = None;
-        prevNode2 = None;
-        node1 = self.head;
-        node2 = self.head;
-
-        #checks if list is empty 
-        if(self.head == None):
-            return;
-
-        #if n1 and n2 are equal, then list will reamin the same 
-        if(n1 == n2):
-            return; 
-
-        #SSearch for node 1 
-        while(node1 != None and node1.data != n1):
-            prevNode1 = node1;
-            node1 = node1.next;
-
-        #SSearch for node 2 
-        while(node2 != None and node2.data != n2 ):
-            prevNode2 = node2
-            node2 = node2.next;
-
-        if(node1 != None and node2 != None):
-
-#if previous node to node1 is not none then, it will point to node2 
-            if(prevNode1 != None):
-                prevNode1.next = node2 
-
-            else:
-                self.head = node2
+answer = [[0,0,0],
+          [0,0,0],
+          [0,0,0]]
 
 
-#if previous node to node2 us not none trhen,it will point to node 2 
-            if(prevNode2 != None):
-                prevNode2.next = node1
+for i in range(len(x)):
+    for j in range(len(x[0])):
+        #transpose matrix 
+        answer[i][j] = x[j][i]
 
-            else:
-                self.head = node1
+for r in answer:
+    print(r)
 
-
-            temp = node1.next;
-            node1.next = node2.next;
-            node2.next = temp;
     
-        else : 
-            print("Swapping is not possible")
-    def display(self):
-        if self.head == None:
-                print("List is empty")
-
-        else: 
-            temp = self.head 
-            while temp:
-                print(temp.data,"---->",end = " ")
-                temp = temp.next
-
-#drivers code 
-l = singlyLL()
-n = node(10)
-l.head = n 
-n1 = node(20)
-n.next = n1 
-n2 = node(30)
-n1.next = n2
-n3 = node(40)
-n2.next = n3 
-
-l.display
-l.swap(10,30)
-l.display()
-
-            
