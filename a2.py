@@ -1,30 +1,16 @@
-def unionofArray(A1,A2,m,n):
-    i,j = 0,0 
-    while i < m and j < n:
-        if A1[i] < A2[j]:
-            print(A1[i],end =" ")
-            i += 1
-        elif A2[j] < A1[i]:
-            print(A2[j],end = " ")
-            j += 1
-        else:
-            print(A2[j],end = ' ')
-            j += 1
-            i += 1
+#initalizing matrices 
+x = [[8,2,9,7],
+     [4,1,9,5],
+     [1,4,8,2],
+     [8,6,4,8]]
 
-    #Remaining elements of greater sized array 
-    while i < m:
-        print(A1[i],end = " ")
-        i += 1
+answer = 0 
 
-    while j < n:
-        print(A2[j],end=" ")
-        j += 1
-        
+for i in range(len(x)):
+    for j in range(len(x[0])):
+        #coloum-wise sum of items
+        answer = answer + x[j][i]
+    #print the coloum sum 
 
-#Drivers code
-A1 = [1,2,8,9]
-A2 = [2,3,5,9]
-m = len(A1)
-n = len(A2)
-unionofArray(A1,A2,m,n)
+    print(answer, end=' ')
+    answer = 0 
