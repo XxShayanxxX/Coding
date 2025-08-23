@@ -1,35 +1,18 @@
-def part(A,low,high):
+x = [[8,2,5,6],
+     [3,1,9,5],
+     [1,4,8,2],
+     [8,6,4,8]]
 
-    pivot = A[high]
+for i in range(len(x)):
+    row_sum = 0 
+    for j in range(len(x[0])):
+        row_sum = row_sum + x[i][j]
 
-    i = low -1
-
-    for j in range(low,high):
-        if A[j]  <= pivot:
-
-            i += 1 
-            (A[i],A[j]) = (A[j],A[i])
-
-    A[i +1 ],A[high] = A[high],A[i+1]
- 
-    return i + 1
+    print(row_sum,end=' ')
+    
+    
 
 
-def quicksort(A,low,high):
-    if low < high:
 
-        p = part(A,low,high)
 
-        quicksort(A,low,p - 1)
 
-        quicksort(A,p +1,high)
-
-n = int(input("Enter the elements : "))
-A = []
-for i in range(n):
-    elements = int(input("Enter a number : "))
-    A.append(elements)
-
-quicksort(A,0,len(A)-1)
-
-print(A)
