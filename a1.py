@@ -1,19 +1,15 @@
-#intitalizing matrices 
-x = [[1,2,3],
-     [4,5,6],
-     [7,8,9]]
+#function to reverse the string 
+def reverse(s):
+    n = len(s)
 
-answer = [[0,0,0],
-          [0,0,0],
-          [0,0,0]]
+    #converting string to list 
+    li = list(s)
+    for i in range(n//2):
+        #swapping first and last,second and second last and so on 
+        li[i],li[n-i-1] = li[n-i-1],li[i]
+    return "".join(li)
 
 
-for i in range(len(x)):
-    for j in range(len(x[0])):
-        #transpose matrix 
-        answer[i][j] = x[j][i]
-
-for r in answer:
-    print(r)
-
-    
+#drivers code 
+inp = input("Enter string : ")
+print(reverse(inp))

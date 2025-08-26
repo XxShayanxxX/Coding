@@ -1,16 +1,13 @@
-#initalizing matrices 
-x = [[8,2,9,7],
-     [4,1,9,5],
-     [1,4,8,2],
-     [8,6,4,8]]
+#input string 
+inp = "Working"
 
-answer = 0 
+#string slicing using indexing sequence 
+print(inp[:3])
+print(inp[3:])
+print(inp[1:5:2])
+#print the string in reverse order using slicing 
+print(inp[::-1])
 
-for i in range(len(x)):
-    for j in range(len(x[0])):
-        #coloum-wise sum of items
-        answer = answer + x[j][i]
-    #print the coloum sum 
+print(inp[-1:-9:-2])
+print(inp[-2:-9:-2])
 
-    print(answer, end=' ')
-    answer = 0 
