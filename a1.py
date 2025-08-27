@@ -1,15 +1,17 @@
-#function to reverse the string 
-def reverse(s):
-    n = len(s)
+#python program to change the cases of letters in a string 
+def changeTheCase(s):
+    result = " "
+    for i in s:
+        #chaning lower case to upper case 
+        if i.islower():
+            result = result + i.upper()
+        #upper case to lower case
+        if i.isupper():
+            result = result + i.lower()
 
-    #converting string to list 
-    li = list(s)
-    for i in range(n//2):
-        #swapping first and last,second and second last and so on 
-        li[i],li[n-i-1] = li[n-i-1],li[i]
-    return "".join(li)
-
+    return result 
 
 #drivers code 
-inp = input("Enter string : ")
-print(reverse(inp))
+inp = input("Enter String: ")
+print("String after change lower case to upper case vice-versa")
+print(changeTheCase(inp))

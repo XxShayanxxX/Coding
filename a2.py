@@ -1,13 +1,22 @@
-#input string 
-inp = "Working"
+def reverse(s):
+    n = len(s)
 
-#string slicing using indexing sequence 
-print(inp[:3])
-print(inp[3:])
-print(inp[1:5:2])
-#print the string in reverse order using slicing 
-print(inp[::-1])
+    li = list(s)
+    for i in range(n//2):
 
-print(inp[-1:-9:-2])
-print(inp[-2:-9:-2])
+        li[i]   ,li[n-i-1] = li[n-i-1],li[i]
+    return "".join(li)
+#function to check the string is palindrome 
+def checkpalindrome(s):
+    #ignoring case
+    s = s.lower()
+    rev_string = reverse(s)
+    if s == rev_string:
+        return True 
+    else:
+        return False
+    
 
+#drivers code
+inp = input("Enter string: ")
+print(checkpalindrome(inp))
