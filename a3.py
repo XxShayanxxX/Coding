@@ -1,23 +1,16 @@
-def removowels(s):
-    result = ""
-    #list containing vowels 
+#function to count the number of words in a string 
 
-    li = ['a','e','i','o','u']
-    for i in range(len(s)):
-        #checking the precense of vowels in a string 
-        if s[i] in li:
+def countwords(n):
+    count = 0 
 
-            #removing vowels 
-            result = result + ""
-
-        else:
-            result = result + s[i]
-
-    return result
+    n = n.strip()
+    for i in range(len(n)):
+        if n[i] == " ":
+            count += 1 
+    
+    return count + 1
 
 
-
-#drivers code
-inp = input("enter a string: ")
-print(removowels(inp))
-        
+#drivers code 
+inp = input("Enter a string : ")
+print("Number of words : ", countwords(inp))
