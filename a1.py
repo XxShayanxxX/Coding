@@ -1,22 +1,24 @@
-#function to count the frequency of each 
-#character in a string 
+# program to find the price of an item through BARCODE
 
-def frequency(s):
-    #creating a dictionary to store the frequency of each character 
-        s = s.lower()
-        d = {}
+def itemPrice(barcode):
+    # list to append the ASCII codes.
+    li = [] 
+    for i in barcode:
+        n = ord(i)
+        # finding the maximum digit of the ASCII code
+        if n//10:
+            maxi = 0
+            while n>0:
+                if n%10 > maxi:
+                    maxi = n%10
+                    n = n//10
+            li.append(maxi)
+        else:
+            li.append(n)
+    # returning the sum of list items
+    return sum(li)
 
-        for i in range(len(s)):
-                #checking if the character is already 
-                #in the dictionary 
-                if s[i] in d.keys():
-                    d[s[i]] += 1 
-                else:
-                    d[s[i]] = 1 
-
-        return d 
-
-#drivers code 
-inp = input("Enter a string: ")
-print(frequency(inp))
-                    
+# driver code
+inp = input("Enter BARCODE: ")
+price = itemPrice(inp)
+print("Price of an item is: ", price)
