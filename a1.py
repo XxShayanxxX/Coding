@@ -1,24 +1,45 @@
-# program to find the price of an item through BARCODE
+#Robin Karp algorithm in python 
+d = 10 
+def searchpattern(pattern,text,q):
+    m = len(pattern)
+    n = len(text)
+    p = 0 
+    t = 0 
+    h = 1
+    i = 0 
+    j = 0 
 
-def itemPrice(barcode):
-    # list to append the ASCII codes.
-    li = [] 
-    for i in barcode:
-        n = ord(i)
-        # finding the maximum digit of the ASCII code
-        if n//10:
-            maxi = 0
-            while n>0:
-                if n%10 > maxi:
-                    maxi = n%10
-                    n = n//10
-            li.append(maxi)
-        else:
-            li.append(n)
-    # returning the sum of list items
-    return sum(li)
+    for i in range(m-1):
+        h = (h*d) % q 
 
-# driver code
-inp = input("Enter BARCODE: ")
-price = itemPrice(inp)
-print("Price of an item is: ", price)
+    #Calcxulate the has value for pattern and text 
+
+    for i in range(m):
+        p = (d*p + ord(pattern[i])) % q
+        t = (d*t + ord(text[i])) % q
+
+
+    #Find the match 
+    for i in range(n-m+1):
+        if p == t : 
+            for j in range(m):
+                if text[i + j] != pattern[j]:
+                    break 
+
+            j += 1 
+            if j ==m :
+                print("Pattern is found at position: ", str(i + 1))
+
+        if i < n-m:
+            t = (d*(t-ord(text[i])*h) + ord(text[i+m])) % q
+
+            if t < 0 : 
+                t = t + q 
+
+    
+text = "ABCCDDAEFG"
+pattern = "CCD"
+q = 13 
+
+searchpattern(pattern,text,q)
+
