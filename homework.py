@@ -1,18 +1,17 @@
-def nonrep(s):
-    for i in range(len(s)):
-        if s.count(s[i]) == 1:
-            return s[i]
-        
-    return None
+def rmv(text):
+    words = text.split()
+    result = []
 
+    for letter in words:
+        if letter not in result:
+            result.append(letter)
+
+    return " ".join(result)
+
+#drivers code 
 
 inp = input("Enter a string : ")
-result = nonrep(inp)
-
-if result:
-    print("first non repeating characyer : ",result)
-
-else:
-    print("no non repeat ")
+print(rmv(inp))
 
 
+            
