@@ -1,16 +1,17 @@
-#function to count the number of words in a string 
-
-def countwords(n):
-    count = 0 
-
-    n = n.strip()
-    for i in range(len(n)):
-        if n[i] == " ":
-            count += 1 
+def sort(s):
+    #code here 
+    li = []
+    ans = " "
+    for i in range(26):
+        li.append(0)
+    for i in range(len(s)):
+        ind = ord(s[i]) - ord('a')
+        li[ind] += 1 
+    for i in range(26):
+        if li[i] >= 1:
+            for j in range(li[i]):
+                ans = ans + chr(ord('a') +  i)
+    return ans
     
-    return count + 1
 
-
-#drivers code 
-inp = input("Enter a string : ")
-print("Number of words : ", countwords(inp))
+print(sort("edba"))

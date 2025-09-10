@@ -1,45 +1,31 @@
-#Robin Karp algorithm in python 
-d = 10 
-def searchpattern(pattern,text,q):
-    m = len(pattern)
-    n = len(text)
-    p = 0 
-    t = 0 
-    h = 1
-    i = 0 
-    j = 0 
+# program to find out the smallest and largest word in a string
 
-    for i in range(m-1):
-        h = (h*d) % q 
+def smallest_largest_words(str1):
+    word = "";
+    all_words = [];
+    str1 = str1 + " ";
+    for i in range(0, len(str1)):
+        if(str1[i] != ' '):
+            word = word + str1[i];  
+        else:
+            all_words.append(word);  
+            word = "";  
+          
+    small = large = all_words[0];  
+   
+#Find the smallest and largest word in the str1  
+    for k in range(0, len(all_words)):
+        if(len(small) > len(all_words[k])):
+            small = all_words[k];
+        
+        if(len(large) < len(all_words[k])):
+            large = all_words[k];
+    return small, large;
 
-    #Calcxulate the has value for pattern and text 
+str1 = "Welcome to codingal";  
 
-    for i in range(m):
-        p = (d*p + ord(pattern[i])) % q
-        t = (d*t + ord(text[i])) % q
+print("Original Strings:",str1)
 
-
-    #Find the match 
-    for i in range(n-m+1):
-        if p == t : 
-            for j in range(m):
-                if text[i + j] != pattern[j]:
-                    break 
-
-            j += 1 
-            if j ==m :
-                print("Pattern is found at position: ", str(i + 1))
-
-        if i < n-m:
-            t = (d*(t-ord(text[i])*h) + ord(text[i+m])) % q
-
-            if t < 0 : 
-                t = t + q 
-
-    
-text = "ABCCDDAEFG"
-pattern = "CCD"
-q = 13 
-
-searchpattern(pattern,text,q)
-
+small, large = smallest_largest_words(str1)  
+print("Smallest word: " + small);  
+print("Largest word: " + large); 
