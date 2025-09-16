@@ -1,19 +1,32 @@
-#program to check if 
-# a string is a substring  of other 
+#Python linear time solution for stock span problem 
+def calculateSpan(price,S):
 
-#check if s1 is a substring of string 2 
-def isSubstring(s1,s2):
-    if s1 in s2:
-        return s2.index(s1)
-    return -1 
+    n = len(price)
+    st = []
+    st.append(0)
+
+    S[0] = 1 
+
+    for i in range(1,n):
+        while(len(st) > 0 and price[st[-1]] <= price[i]):
+            st.pop()
+        S[i] = i + 1 if len(st) == 0 else (i - st[-1])
+        st.append(i)
 
 
-#drivers code 
-if __name__ == "__main__":
-    s1 = "Welcome"
-    s2 = "Welcome to codingal"
-    result = isSubstring(s1,s2)
-    if result == -1 :
-        print("Not present ")
-    else:
-        print("Present at index " + str(result))
+def printArray(arr,n):
+    for i in range(0,n):
+        print(arr[i],end=" ")
+
+
+def printArray(arr,n):
+    for i in range(0,n):
+        print(arr[i],end = " ")
+
+
+price = [10,4,5,90,120,80]
+S = [0 for i in range(len(price)+1)]
+
+calculateSpan(price,S)
+
+print(S,len(price))

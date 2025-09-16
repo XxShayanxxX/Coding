@@ -1,31 +1,35 @@
-# program to find out the smallest and largest word in a string
+from sys import maxsize 
 
-def smallest_largest_words(str1):
-    word = "";
-    all_words = [];
-    str1 = str1 + " ";
-    for i in range(0, len(str1)):
-        if(str1[i] != ' '):
-            word = word + str1[i];  
-        else:
-            all_words.append(word);  
-            word = "";  
-          
-    small = large = all_words[0];  
-   
-#Find the smallest and largest word in the str1  
-    for k in range(0, len(all_words)):
-        if(len(small) > len(all_words[k])):
-            small = all_words[k];
-        
-        if(len(large) < len(all_words[k])):
-            large = all_words[k];
-    return small, large;
+def createStack():
+    stack = []
+    return stack 
 
-str1 = "Welcome to codingal";  
 
-print("Original Strings:",str1)
+def isEmpty(stack):
+   return len(stack) == 0 
 
-small, large = smallest_largest_words(str1)  
-print("Smallest word: " + small);  
-print("Largest word: " + large); 
+
+def push(stack,item):
+    stack.append(item)
+    print(item + "pushed to stack ")
+
+
+def pop(stack):
+    if(isEmpty(stack)):
+        return str( -maxsize-1)
+    return stack.pop()
+
+
+
+def peek(stack):
+    if (isEmpty(stack)):
+       return str(-maxsize - 1)
+    return stack[len(stack) -1]
+
+
+stack = createStack()
+push(stack,str(10))
+push(stack,str(20))
+push(stack,str(30))
+print(pop(stack)+ "popped from stack")
+
