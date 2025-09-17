@@ -1,35 +1,58 @@
-from sys import maxsize 
-
-def createStack():
-    stack = []
-    return stack 
-
-
-def isEmpty(stack):
-   return len(stack) == 0 
+class Node:
+    def __init__(self,data):
+        self.data = data 
+        self.next = None 
 
 
-def push(stack,item):
-    stack.append(item)
-    print(item + "pushed to stack ")
+class Stack:
 
+    def __init__(self):
+        self.head = None
 
-def pop(stack):
-    if(isEmpty(stack)):
-        return str( -maxsize-1)
-    return stack.pop()
+    def isempty(self):
+        return True if self.head == None else False
+    
+    def push(self,data):
+        if self.head == None:
+          self.head = Node(data)
 
+        else:
+            new_node = Node(data)
+            new_node.next = self.head 
+            self.head = new_node
 
+    def topElement(self):
+        if self.isempty():
+            return None 
+        else: 
+            return self.head.data
+        
+    def pop(self):
+        if self.isempty():
+          return Node
+        else:
+            popped_none = self.head
+            self.head = self.head.next 
+            popped_none.next = None
+            return popped_none.data
+        
+#Drivers code 
+stack_obj = Stack()
+stack_obj.push(5)
+stack_obj.push(2)
+stack_obj.push(7)
+stack_obj.push(8)
 
-def peek(stack):
-    if (isEmpty(stack)):
-       return str(-maxsize - 1)
-    return stack[len(stack) -1]
-
-
-stack = createStack()
-push(stack,str(10))
-push(stack,str(20))
-push(stack,str(30))
-print(pop(stack)+ "popped from stack")
-
+print("the element at the top")
+print(stack_obj.topElement())
+print("The element popped")
+print(stack_obj.pop())
+print("the element at the top")
+print(stack_obj.topElement)
+print("the element is popped")
+print(stack_obj.pop())
+print("the element at the top")
+print(stack_obj.topElement())
+print("the element popped")
+print(stack_obj.pop())
+                
