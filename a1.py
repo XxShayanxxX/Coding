@@ -1,138 +1,58 @@
-#Python program to implement queue using array 
-#declaring the array of maximum capacity
+#program to implement stack using 
+#two queue 
 
-ar = [0 for _ in range(10)]
-n = 10 
+from _collections import deque 
 
-#declaring front and rear and intializing both with -1 
-
-front = -1 
-rear = -1 
-
-#function to perform enqueue operation 
-def enqueue(item):
-    #checking overflow condition 
-    global n 
-    global rear 
-    global front 
-
-    if rear == n - 1:
-        print("Overflow!", end = " ")
-        print("\n", end = " ")
-        return 
+class Stack:
     
-    else:
-        #front and rear both are at -1 then 
-        #set front and rear at 0 otherwise increment rear 
+    def __init__(self):
 
-        if front == -1 and rear == -1 :
-            front = 0 
-            rear = 0 
+        #Two inbuilt queues 
+        self.q1 = deque()
+        self.q2 = deque()
 
-        else:
-            rear += 1 
-            #insterting element at rear 
-            ar[rear] = item 
-            print("Element inserted")
+    def push(self,x):
+
+        #push x first in empty q2 
+        self.q2.append(x)
+
+        #Push all the remaining 
+        #elements in q1 to q2 
+        while (self.q1):
 
 
-#function to implement dequeue operation 
-def dequeue():
-    global n 
-    global rear 
-    global front 
+            self.q2.append(self.q1.popleft())
 
-    #checking underflow condition 
-    if front == -1 or front > rear:
-        print("Underflow!", end = " ")
-        return
-    else:
-        #if queue is not empty print all the elements from the rear to the front 
-        print("Elements are : ",end = "")
-        i = front 
-        while i <= rear:
-            print(ar[i],end = " ")
-            print(" ",end = " ")
-            i += 1 
+        #swap the names of two queues 
+        self.q1, self.q2 = self.q2, self.q1 
 
-        print("\n", end = " ")
+    def pop(self):
 
-def display():
-    global n 
-    global rear 
-    global front 
-    #checking whether queue is empty or not 
-    if front == -1 :
-        #if queue is empty simply return 
-        print("Queue is empty", end = " ")
-        print("\n", end = " ")
-        return
-    else:
-        #if queue is not empty print all the lements from rear to fornt 
-        print("Elements are: ", end = " ")
-        i = front
-        while i <= rear:
-            print(ar[i],end =" ")
-            print("",end="")
-            i += 1
+        #if no elements are there in q1 
+        if self.q1:
+            self.q1.popleft()
 
-#function to display front element of queue 
-def fronte():
-    global n 
-    global rear 
-    global front 
-    #checking whether queue is empty or not 
-    if front == - 1:
-        #if queue is empty simply return 
-        print("Queue is empty", end = " ")
-
-        print("Queue is empty ", end = " ")
-        print("\n", end = " ")
-
-        return 
-    else: 
-        #if queue is not empty print front element 
-        print("Front element is:", end = " ")
-        print(ar[front],end = " ")
-        print("\n",end = " ")
-
-ch = None 
-#displaying options of enqueue, dequeue , front , display to the user 
-
-print("1: Intersting element to queue(enqueue)", end = "")
-print("\n",end = "")
-print("2: Deleting element from the queue(dequeue)", end ="")
-print("3: Display front element of queue",end = "")
-print("\n", end = " ")
-print("4: Display all the elements of queue",end = "")
-print("\n", end = "")
-print("5:Exit", end = "")
-print("\n", end="")
-condition = True 
-
-while condition:
-    #taking user choice 
-    ch = int(input("Enter your choice: "))
-    #calling the function accoding to the choice of user 
-    if ch == 1:
-        item = int(input("Enter element to be inserted: "))
-        enqueue(item)
-
-    elif ch == 2:
-        dequeue()
+    def top(self):
+        if (self.q1):
+            return self.q1[0]
+        return None 
     
-    elif ch == 3:
-        display()  
 
-    elif ch == 4:
-        fronte()
+    def size(self):
+        return len(self.q1)
+    
+#Drivers code 
+if __name__ == '__main__':
+    s = Stack()
+    s.push(1)
+    s.push(2)
+    s.push(3)
 
-    elif ch == 5:
-        print("Exit", end = "")
-        print("\n", end = " ")
+    print("current size: ",s.size())
+    print(s.top())
+    s.pop()
+    print(s.top())
+    s.pop()
+    print(s.top())
 
-    else:
-        print("invalid choice", end = " ")
-        print('\n',end = " ")
-
-    condition = ch!=5 
+    print("current size : ",s.size())

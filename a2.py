@@ -1,32 +1,62 @@
-#Python linear time solution for stock span problem 
-def calculateSpan(price,S):
+from collections import deque 
 
-    n = len(price)
-    st = []
-    st.append(0)
+class Stack:
 
-    S[0] = 1 
+    def __init__(self):
+    
+        #Two inbuilt queues 
+        self.q1 = deque()
+        self.q2 = deque()
 
-    for i in range(1,n):
-        while(len(st) > 0 and price[st[-1]] <= price[i]):
-            st.pop()
-        S[i] = i + 1 if len(st) == 0 else (i - st[-1])
-        st.append(i)
+    def push(self,x):
+        self.q1.append(x)
 
-
-def printArray(arr,n):
-    for i in range(0,n):
-        print(arr[i],end=" ")
-
-
-def printArray(arr,n):
-    for i in range(0,n):
-        print(arr[i],end = " ")
+    def pop(self):
+        #if no elements are there in q1 
+        if(not self.q1):
+            return 
+        
+        #Leave one element in q1 and push others in q2 
+        while(len(self.q1) != 1):
+            self.q2.append(self.q1.popleft())
 
 
-price = [10,4,5,90,120,80]
-S = [0 for i in range(len(price)+1)]
+            #swap the names of two queues 
+            self.q1,self.q2 = self.q2 , self.q1
 
-calculateSpan(price,S)
+    def top(self):
+            #if no elements are there in q1 
+        if (not self.q1):
+                return 
+            #Leave one element in q1 and push others in q2 
+        while(len(self.q1) != 1 ):
+            self.q2.append(self.q1.popleft())
 
-print(S,len(price))
+        top = self.q1[0]
+        self.q2.append(self.q1.popleft())
+        
+
+            #swap the names of two queues 
+        self.q1, self.q2 = self.q2 , self.q1
+
+        return top 
+        
+    def size(self):
+        return len(self.q1)
+        
+#Drivers code 
+if __name__ == "__main__":
+    s = Stack()
+    s.push(1)
+    s.push(2)
+    s.push(3)
+
+    print("current size: ", s.size())
+    print(s.top())
+    s.pop()
+    print(s.top())
+    s.pop()
+    print(s.top())
+
+
+    print("current size: ", s.size())
