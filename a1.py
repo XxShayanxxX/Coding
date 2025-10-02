@@ -1,58 +1,55 @@
-#program to implement stack using 
-#two queue 
+from binarytree import Node
 
-from _collections import deque 
+#create root node 
+root = Node(1)
 
-class Stack:
-    
-    def __init__(self):
+#create.left = Node(2)
+root.left = Node(2)
+root.right = Node(3)
 
-        #Two inbuilt queues 
-        self.q1 = deque()
-        self.q2 = deque()
+#Add more nodes to the left subtree 
+root.left.left = Node(4)
+root.left.right = Node(5)
 
-    def push(self,x):
+#Add more nodes to the right subtree 
+root.right.left = Node(6)
+root.right.right = Node(7)
 
-        #push x first in empty q2 
-        self.q2.append(x)
+#Display the binary tree 
+print("Binary Tree Structure: ")
+print(root)
 
-        #Push all the remaining 
-        #elements in q1 to q2 
-        while (self.q1):
+#In-order traversal to display the tree nodes 
+def in_order_traversal(node):
+    if node:
+        in_order_traversal(node.left)
+        print(node.value, end=" ")
+        in_order_traversal(node.right)
 
+#Pre-order traversal to display the tree nodes 
+def pre_order_traversal(node):
+    if node:
+        print(node.value,end = ' ')
+        pre_order_traversal(node.left)
+        pre_order_traversal(node.right)
 
-            self.q2.append(self.q1.popleft())
+#Post-order traversal to display the tree 
+def post_order_traversal(node):
+    if node:
+        post_order_traversal(node.left)
+        post_order_traversal(node.right)
+        print(node.value, end=" ")
 
-        #swap the names of two queues 
-        self.q1, self.q2 = self.q2, self.q1 
+#Display the tree nodes using different transversals 
 
-    def pop(self):
+print("\nIn-order Transversal:")
+in_order_traversal(root)
+print("\n")
 
-        #if no elements are there in q1 
-        if self.q1:
-            self.q1.popleft()
+print("Pre-order Transversal:")
+pre_order_traversal(root)
+print("\n")
 
-    def top(self):
-        if (self.q1):
-            return self.q1[0]
-        return None 
-    
-
-    def size(self):
-        return len(self.q1)
-    
-#Drivers code 
-if __name__ == '__main__':
-    s = Stack()
-    s.push(1)
-    s.push(2)
-    s.push(3)
-
-    print("current size: ",s.size())
-    print(s.top())
-    s.pop()
-    print(s.top())
-    s.pop()
-    print(s.top())
-
-    print("current size : ",s.size())
+print("Post-order Transversal:")
+post_order_traversal(root)
+print("\n")
