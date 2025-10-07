@@ -1,62 +1,49 @@
-from collections import deque 
+class BinaryTreeNode:
+    def __init__(self,data):
+        self.data = data 
+        self.left_child = None 
+        self.right_child = None
 
-class Stack:
+def insert(root, new_value):
+    # Inset a new node with the given value into the BST.
 
-    def __init__(self):
-    
-        #Two inbuilt queues 
-        self.q1 = deque()
-        self.q2 = deque()
+    if root is None:
+        return BinaryTreeNode(new_value)
+    if new_value < root.data:
+        root.left_child = insert(root.left_child, new_value)
 
-    def push(self,x):
-        self.q1.append(x)
+    elif new_value < root.data:
+        root.right_child = insert(root.right_child, new_value)
 
-    def pop(self):
-        #if no elements are there in q1 
-        if(not self.q1):
-            return 
-        
-        #Leave one element in q1 and push others in q2 
-        while(len(self.q1) != 1):
-            self.q2.append(self.q1.popleft())
+    else:
+        #Duplicate value found; you can decide how to handle it 
+        print(f"Value {new_value} already exsists in the tree.")
+    return root 
 
+def delete_tree(root):
+    #Delete all nodes of the tree by removing references.
+    if root:
+        #Delete left subtree
+        delete_tree(root.left_child)
 
-            #swap the names of two queues 
-            self.q1,self.q2 = self.q2 , self.q1
+        root.left_child = None #Removing refrence to left child 
+        #Dlete right subtree 
+        delete_tree(root.right_child)
+        root.right_child = None #Remove refernece to right child 
 
-    def top(self):
-            #if no elements are there in q1 
-        if (not self.q1):
-                return 
-            #Leave one element in q1 and push others in q2 
-        while(len(self.q1) != 1 ):
-            self.q2.append(self.q1.popleft())
+        print(f"Deleting Node: ",{root.data})
+        root.data = None #Optional : Remove data reference 
 
-        top = self.q1[0]
-        self.q2.append(self.q1.popleft())
-        
+#Build the tree 
+root = insert(None,15)
+insert(root,10)
+insert(root,25)
+insert(root,6)
+insert(root,14)
+insert(root,20)
+insert(root,60)
 
-            #swap the names of two queues 
-        self.q1, self.q2 = self.q2 , self.q1
+print("Deleting all the elements of the binary tree ")
+delete_tree(root)
+root = None #Remove reference to the root node
 
-        return top 
-        
-    def size(self):
-        return len(self.q1)
-        
-#Drivers code 
-if __name__ == "__main__":
-    s = Stack()
-    s.push(1)
-    s.push(2)
-    s.push(3)
-
-    print("current size: ", s.size())
-    print(s.top())
-    s.pop()
-    print(s.top())
-    s.pop()
-    print(s.top())
-
-
-    print("current size: ", s.size())
