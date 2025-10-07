@@ -1,55 +1,46 @@
-from binarytree import Node
+class Node:
+    def __init__(self,data):
+        self.left = None
+        self.right = None
+        self.data = data
 
-#create root node 
-root = Node(1)
+    def insert(self,data):
+        #Compare the new value with the current node's data 
+        if  data < self.data :
+            if self.left is None:
+                self.left = Node(data)
+                print(f"Intseterd {data} to the left of {self.data}")
 
-#create.left = Node(2)
-root.left = Node(2)
-root.right = Node(3)
+            else:
+                self.left.insert(data)
+            
+        elif data > self.data:
+            if self.right is None:
+                self.right = Node(data)
+                print(f"Inserted {data} to the right of {self.data}")
+            else:
+                self.right.insert(data)
 
-#Add more nodes to the left subtree 
-root.left.left = Node(4)
-root.left.right = Node(5)
+        else:
+            #Duplicate value found; no action taken or handle as needed 
+            print(f"Value {data} already exsist in the tree. ")
 
-#Add more nodes to the right subtree 
-root.right.left = Node(6)
-root.right.right = Node(7)
+        
+    def print_tree(self):
+        #In-order traversal to print the tree 
+        if self.left:
+            self.left.print_tree()
+        print(self.data,end = " ")
 
-#Display the binary tree 
-print("Binary Tree Structure: ")
-print(root)
+        if self.right:
+            self.right.print_tree()
 
-#In-order traversal to display the tree nodes 
-def in_order_traversal(node):
-    if node:
-        in_order_traversal(node.left)
-        print(node.value, end=" ")
-        in_order_traversal(node.right)
+# Use the insert method to add nodes
+root = Node(12)
+root.insert(6)
+root.insert(14)
+root.insert(3)
+root.print_tree()
 
-#Pre-order traversal to display the tree nodes 
-def pre_order_traversal(node):
-    if node:
-        print(node.value,end = ' ')
-        pre_order_traversal(node.left)
-        pre_order_traversal(node.right)
 
-#Post-order traversal to display the tree 
-def post_order_traversal(node):
-    if node:
-        post_order_traversal(node.left)
-        post_order_traversal(node.right)
-        print(node.value, end=" ")
-
-#Display the tree nodes using different transversals 
-
-print("\nIn-order Transversal:")
-in_order_traversal(root)
-print("\n")
-
-print("Pre-order Transversal:")
-pre_order_traversal(root)
-print("\n")
-
-print("Post-order Transversal:")
-post_order_traversal(root)
-print("\n")
+        
