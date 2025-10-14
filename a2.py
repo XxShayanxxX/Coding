@@ -1,49 +1,46 @@
-class BinaryTreeNode:
-    def __init__(self,data):
-        self.data = data 
-        self.left_child = None 
-        self.right_child = None
+from binarytree import build
 
-def insert(root, new_value):
-    # Inset a new node with the given value into the BST.
+class Node:
+    #A Class representing a node in binary tree.
 
-    if root is None:
-        return BinaryTreeNode(new_value)
-    if new_value < root.data:
-        root.left_child = insert(root.left_child, new_value)
+    def __init__(self,key):
+        self.left = None
+        self.right = None
+        self.val = key
 
-    elif new_value < root.data:
-        root.right_child = insert(root.right_child, new_value)
 
-    else:
-        #Duplicate value found; you can decide how to handle it 
-        print(f"Value {new_value} already exsists in the tree.")
-    return root 
+def print_postorder(root):
+    #Recursively performs a post-order traversal of the binary tree.
 
-def delete_tree(root):
-    #Delete all nodes of the tree by removing references.
     if root:
-        #Delete left subtree
-        delete_tree(root.left_child)
+        #Recursively traverse the left subtree 
+        print_postorder(root.left)
 
-        root.left_child = None #Removing refrence to left child 
-        #Dlete right subtree 
-        delete_tree(root.right_child)
-        root.right_child = None #Remove refernece to right child 
+        #Recursively traverse the right subtree 
+        print_postorder(root.right)
 
-        print(f"Deleting Node: ",{root.data})
-        root.data = None #Optional : Remove data reference 
+if __name__ == "__main__":
 
-#Build the tree 
-root = insert(None,15)
-insert(root,10)
-insert(root,25)
-insert(root,6)
-insert(root,14)
-insert(root,20)
-insert(root,60)
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.left.left = Node(4)
+    root.left.right = Node(5)
 
-print("Deleting all the elements of the binary tree ")
-delete_tree(root)
-root = None #Remove reference to the root node
+#Using the binary tree module to visualise the tree structure 
+#COnvert the tree into a binarytree node structure 
 
+    tree_list = [1,2,3,4,5]
+    visual_tree = build(tree_list)
+
+    print("binary tree visualization")
+    print(visual_tree)
+
+    #Printing post-order traversal 
+    print("Post-order traversal of binary tree is: ")
+    print_postorder(root)
+    print()
+
+
+
+        
