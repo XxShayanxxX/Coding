@@ -1,104 +1,68 @@
-class Node:
-    def __init__(self,val):
+#Python program to demonstrate 
+#insert operation in binary search tree 
 
-        self.val = val 
+#a utility class that represents 
+#an individual node in a BST 
+class Node:
+    def __init__(self,key):
         self.left = None 
         self.right = None 
+        self.val = key 
 
-
-def find_nodes_with_one_child(root,single_child_nodes = None):
-
-    if single_child_nodes is None:
-        single_child_nodes = []
-
-    if not root:
-        return single_child_nodes
     
-    #Check if the current nodes has exactly one child 
-    if (root.left and not root.right) or (root.right and not root.left):
-        single_child_nodes.append(root)
 
-
-    #Recurse on the left and right subtree 
-    find_nodes_with_one_child(root.left,single_child_nodes)
-    find_nodes_with_one_child(root.right,single_child_nodes)
-
-    return single_child_nodes
-
-def find_paths_in_range(root,low,high,current_path = None,current_sum = 0, valid_paths = None):
-
-    if valid_paths is None:
-        valid_paths = []
-    if current_path is None:
-        current_path = []
-
-
+#a utility function to insert 
+#a new node with the given key 
+def insert(root,key):
     if root is None:
-        return valid_paths
+        return Node(key)
+    else:
+        if root.val == key:
+            return root 
+        elif root.val < key:
+            if root.val == key:
+                return root 
+            
+            elif root.val < key :
+                root.right = insert(root.right,key)
+            else:
+                root.left == insert(root.left,key)
+        return root
     
-    #Include the current node int he path and its value to the sum 
-    current_path.append(root.val)
-    current_sum += root.val
 
-    #If its a leaf node, check if the current sum is within the range 
-    if root.left is None and root.right is None:
-        if low <= current_sum <= high:
-            #Append a copy of the current path to valid_path 
-            valid_paths.append(list(current_path))
+#A utility function to do inorder tree traversal 
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val, end = " ")
+        inorder(root.right)
 
-    else:
-        #Recurse on the left and right children 
-        find_paths_in_range(root.left, low,high,current_path,current_sum, valid_paths)
-        find_paths_in_range(root.right ,low ,high ,current_path,current_sum,valid_paths)
+#Driver program to test the above functions 
+if __name__ == '__main__':
 
-        #backtrack : Remove the current node before returning to the caller 
-    current_path.pop()
+    #Let us create the following BST
+    #50 
+    #30 70 
+    #20 40 60 80 
 
-    return valid_paths
-
-def main():
-
-    #Construct the binary tree 
-    root = Node(2)
-    root.left = Node(3)
-    root.right = Node(5)
-
-    root.left.left = Node(7)
-    root.right.left = Node(8)
-    root.right.right = Node(6)
-
-    #FInd and collect nodes with exactly one child 
-    single_child_nodes = find_nodes_with_one_child(root)
-
-    #print nodes with exactly  one child 
-    if not single_child_nodes:
-        print(-1)
-
-    else:
-        print("Nodes with exactly one child: ")
-        for node in single_child_nodes:
-            print(node.val, end=" ")
-        print()
-
-    #Def9ne the sum range 
-    low = 14 
-    high = 21 
-
-    #Find and print all root to leaf paths within the sum range 
-    valid_paths = find_paths_in_range(root,low,high)
-    if valid_paths: 
-        print(f"\n Root-to-leaf paths witrh sum in range [{low},{high}]:")
-        for path in valid_paths:
-                print("-->".join(map(str,path)))
-                
-    else:
-        print(f"\n There are no root-to-leaf paths with sum in range [{low},{high}].")
+    #Let us create the following BST 
+    #50 
+    # 30 70 
+    # 
+    #20 40 60 80 
 
 
-if __name__ ==  "__main__":
-    main()
+    r = Node(50)
+    r = insert(r,30)
+    r = insert(r,20)
+    r = insert(r,40)
+    r = insert(r,70)
+    r = insert(r,60)
+    r = insert(r,80)
 
-
+    #Print inorder traversal of the BST 
+    inorder(r)
+    
 
 
         
