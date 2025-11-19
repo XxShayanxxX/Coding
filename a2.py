@@ -1,70 +1,19 @@
-class Node:
-    def __init__(self,key):
-        self.left = None 
-        self.right = None
-        self.val = key
+def heapify(arr,n,i):
+    largest = i 
+    l = 2 * i + 1 
+    r = 2 * i + 2 
+    if l < n and arr[i] < arr[l]:
+        largest = l 
 
+    if r < n and arr[largest] < arr[r]:
+        largest = r 
+    if largest != i:
+        arr[i],arr[largest] = arr[largest],arr[i]
+        heapify(arr,n,largest)
 
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-        
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-    
+arr = [4,10,3,5,1]
 
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-        
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-        elif root.val < key:
-            root.right = insert(root.right,key)
-        else:
-            root.left = insert(root.left,key)
-        return root 
-    
-def search(root,key):
-
-    if root is None or root.val == key:
-        return root 
-    
-    if root.val < key:
-        return search(root.right,key)
-    
-    return search(root.left ,key)
-
-def inorder(root):
-    if root:
-        inorder(root.left)
-        print(root.val)
-        inorder(root.right)
-    if root:
-        inorder(root.left)
-        print(root.val)
-        inorder(root.right)
-
-r = Node(50)
-r = insert(r,30)
-r = insert(r,20)
-r = insert(r,40)
-r = insert(r,70)
-r = insert(r,60)
-r = insert(r,80)
-
-inorder(r)
+n = len(arr)
+for i in range(n,-1,-1):
+    heapify(arr,n,i)
+    print(arr)
