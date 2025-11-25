@@ -1,76 +1,43 @@
-#python program to demonstrate 
-#insert and search operation in binary search tree 
+def heapsort(arr):
+    n = len(arr)
 
-#A utility class that represents 
-#an individual node in a BST 
+    # Build max heap 
+    for i in range(n//2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    # Extract the elements one by one 
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
 
 
-class Node:
-    def __init__(self,key):
-        self.right = None 
-        self.left = None 
-        self.val = key 
+# Heapify function 
+def heapify(arr, n, i):
+    largest = i 
+    l = 2 * i + 1
+    r = 2 * i + 2 
 
-#A utility function to insert 
-#A new node with the given key 
+    # See if left child exists and is greater than root 
+    if l < n and arr[l] > arr[largest]:
+        largest = l 
 
-def insert(root,key):
-    if root is Node:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root
-#A utility function to insert
-#a new node with the given key 
+    # See if right child exists and is greater than root 
+    if r < n and arr[r] > arr[largest]:
+        largest = r
 
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-        
-def insert(root,key):
-    if root is None:
-        return Node(key)
-    else:
-        if root.val == key:
-            return root 
-        elif root.val < key:
-            root.right = insert(root.right,key)
-        else:
-            root.left = insert(root.left,key)
-        return root 
-    
-#A utility function to do inorder tree traversal 
+    # Heapify the root 
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
 
-def inorder(root):
-    if root:
-        inorder(root.left)
-        print(root.val)
-        inorder(root.right)
-    if root:
-        inorder(root.left)
-        print(root.val)
-        inorder(root.right)
 
-# Driver program to test the above functions 
-#Let us create the following BSt 
-#50
-#/\
-#30 70
-#/\ /\
-#20 40  60 80 
+if __name__ == "__main__":
+    arr = [12, 11, 13, 5, 6, 7]
 
-r = Node(50)
-r = insert(r,30)
-r = insert(r,20)
-r = insert(r,40)
-r = insert(r,70)
-r = insert(r,60)
-r = insert(r,80)
+    # Function call 
+    heapsort(arr)
+    N = len(arr)
 
-#pRINT INORDER  TRAVERSAL OF THE BST 
-inorder(r)
-
-    
+    print("Sorted array is")
+    for i in range(N):
+        print("%d" % arr[i], end=" ")
