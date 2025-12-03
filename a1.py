@@ -1,116 +1,119 @@
-import sys 
+class Node:
+    def __init__(self,key,value):
+        self.key = key
+        self.value = value
+        self.next = None
 
-#Structure for the elements in the priority queue
-class item:
-    value = 0 
-    priority = 0 
+class HashTable:
+    def __init__(self,capacity):
+        self.capacity = capacity
+        self.size = 0 
+        self.table = [None] * capacity
 
-class GFG:
+    def _hash(self,key):
+        return hash(key) % self.capacity
+    
+    def insert(self,key,value):
+        index = self._hash(key)
 
-    #STore elemenet of a priority queue queue
-    pr = [None] * (100000)
+        if self.table[index] is None:
+            self.table[index] = Node(key,value) 
+            self.size += 1 
 
-    #Pointer to the last index 
-    size = -1
-    #FUnction to insert a new element into priority queue
-    @staticmethod
-    def enqueue(value,priority):
+        else:
+            current = self.table[index]
+            while current:
+                if current.key == key:
+                    current.value = value 
+                    return 
+                
+                current = current.next
+            new_node = Node(key,value)
+            new_node.next = self.table[index]
+            self.table[index] = new_node
+            self.size += 1 
+            
+            
+    def search(self,key):
+        index = self._hash(key)
+
+        current = self.table[index]
+        while current:
+            if current.key == key:
+                return current.value 
+            current = current.next 
+
+        raise KeyError(key)
+    
+
+    def remove(self,key):
+        index = self._hash(key)
+
+        previous = None 
+        current = self.table[index]
+
+        while current:
+            if current.key == key:
+                if previous:
+                    previous.next = current.next
+                else:
+                    self.table[index] = current.next 
+                self.size -= 1 
+                return 
+            previous = current 
+            current = current.next 
+
+        raise KeyError(key)
+    
+    def __len__(self):
+        return self.size
+    
+    def __contains__(self,key):
+        try:
+            self.search(key)
+            return True 
+        except KeyError:
+            return False
         
-        #Increase the size 
-        GFG.size +=1 
-
-        #Insert element
-        GFG.pr[GFG.size] = item()
-        GFG.pr[GFG.size].value = value 
-        GFG.pr[GFG.size].priority = priority
-
-
-    #FUnction to check the top element 
-    @staticmethod
-    def peek():
-        highestPriority = -sys.maxsize
-        ind = -1
-
-
-    #Check for the element with highest priority 
-        i = 0 
-        while (i <= GFG.size):
-        
-        #If priority is same choose
-        #the element with the higher value 
-
-            if(highestPriority == GFG.pr[i].priority and ind > -1 and GFG.pr[ind].value < GFG.pr[i].value):
-               highestPriority = GFG.pr[i].priority
-               ind = i 
-
-            elif(highestPriority < GFG.pr[i].priority):
-                highestPriority = GFG.pr[i].priority
-                ind = 1 
-
-            i += 1 
-        #Retrnposition of the element 
-        return ind 
-
-        #FUnction to remove the elemenr wirh the highest priority 
-    @staticmethod
-    def dequeue():
-
-        #Find the position of the element with the highestr priority 
-
-        ind = GFG.peek()
-        #Shift the element one index before 
-        #the position from the highest priority element is found 
-
-        i = ind 
-        while(i < GFG.size):
-            GFG.pr[i] = GFG.pr[i + 1]
-            i += 1 
-
-        #Decrease the size of the 
-        #priority queue by one 
-
-
-    @staticmethod 
-    def main(args):
-
-        #Function call to insert elements as per priority 
-
-        GFG.enqueue(10,2)
-        GFG.enqueue(14,4)
-        GFG.enqueue(16,4)
-        GFG.enqueue(12,3)
-
-        #Stores the top element 
-        # at the moment 
-
-        ind = GFG.peek()
-        print(GFG.pr[ind].value)
-
-
-        #Dequeue the top element 
-        GFG.dequeue()
-
-        #Chekc the top element
-        ind = GFG.peek()
-        print(GFG.pr[ind].value)
-
-
-        #Dequeue the top element  
-        GFG.dequeue()
-
-        #Check the top element    
-        ind = GFG.peek()
-        print(GFG.pr[ind].value) 
-
-        #Dequeue the top element 
-        GFG.dequeue()
-
-        #CHeck the top element 
-        ind = GFG.peek()  
-        print(GFG.pr[ind].value)
-
+#Driver code 
 if __name__ == "__main__":
-    GFG.main([])
+
+    #Create a hash table with a capacitu of 5 
+    ht = HashTable(5)
+
+    #Add some key value pairs
+    #to the hash table 
+    ht.insert("apple",3)
+    ht.insert("banana",2)
+    ht.insert("cherry",5)
+
+    #Check if the has table contains a key 
+    print("apple" in ht) #True 
+    print("durian" in ht) #FaLse
+
+    #Get the value for a key 
+    print(ht.search("banana")) #2 
+
+    #Update the value for a key 
+    ht.insert("banana",4)
+    print(ht.search("banana")) #4
+
+    ht.remove("apple")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
