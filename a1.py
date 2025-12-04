@@ -1,47 +1,31 @@
+
+# A graph data structure using adjacency list 
+
 class Graph:
-    def __init__(self):
-        self.nodes = set()
-        self.edges = {}
 
-    def add_node(self,node):
-        self.nodes.add(node)
+    def __init__(self,num_vertices):
+        self.num_vertices = num_vertices
+        self.adj_list = [[] for _ in range(num_vertices)]
 
+    def add_edge(self,u,v):
+        self.adj_list[u].append(v)
 
-    def add_edges(self,node1,node2,weight=1):
-        if node1 not in self.nodes:
-            self.nodes.add(node1)
-        if node2 not in self.nodes:
-            self.nodes.add(node2)
+    def print_graph(self):
+        for i in range(self.num_vertices):
+            print(i,"-->",self.adj_list[i])
+            
+        
+#create a graph using 5 vertices 
 
-        if node1 not in self.edges:
-            self.edges[node1] = set()
-        self.edges[node1].add((node2,weight))
+g = Graph(5) 
 
-        if node2 not in self.edges:
-            self.edges[node2] = set()
-        self.edges[node2].add((node1,weight))
+# Add edges between vertices 0 and 1, 0 and 2, 1 and 2,2 and 3, 3 and 4
+g.add_edge(0,1)
+g.add_edge(0,2)
+g.add_edge(1,2)
+g.add_edge(2,3)
+g.add_edge(3,4)
 
-    def get_nodes(self):
-        return self.nodes
-    
-    def get_edges(self):
-        return self.edges
-    
-    def __repr__(self):
-        return str(self.nodes) + "->" + str(self.edges)
-    
+#Print the graph()
+g.print_graph()
 
-#Create a graph 
-graph = Graph()
-
-#Add nodes
-graph.add_node("A")
-graph.add_node("B")
-graph.add_node("C")
-
-#Add edges 
-graph.add_edges("A","B")
-graph.add_edges("A","C")
-graph.add_edges("B","C")
-
-print(graph)
