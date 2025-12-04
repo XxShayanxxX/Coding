@@ -1,31 +1,40 @@
-
-# A graph data structure using adjacency list 
+from collections import defaultdict
 
 class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+    
+    def add_edges(self,u,v):
+        self.graph[u].append(v)
 
-    def __init__(self,num_vertices):
-        self.num_vertices = num_vertices
-        self.adj_list = [[] for _ in range(num_vertices)]
+    def bfs(self,start):
+        visited = [False] * (max(self.graph)+1)
+        queue = []
 
-    def add_edge(self,u,v):
-        self.adj_list[u].append(v)
+        queue.append(start)
+        visited[start] = True 
 
-    def print_graph(self):
-        for i in range(self.num_vertices):
-            print(i,"-->",self.adj_list[i])
-            
-        
-#create a graph using 5 vertices 
+        while queue:
+            node = queue.pop(0)
+            print(node,end=' ')
 
-g = Graph(5) 
+            for neighbour in self.graph[node]:
+                if not visited[neighbour]:
+                    queue.append(neighbour)
+                    visited[neighbour] = True
 
-# Add edges between vertices 0 and 1, 0 and 2, 1 and 2,2 and 3, 3 and 4
-g.add_edge(0,1)
-g.add_edge(0,2)
-g.add_edge(1,2)
-g.add_edge(2,3)
-g.add_edge(3,4)
+#Test the BFS algorithm 
+if __name__ == "__main__":
+    g = Graph()
 
-#Print the graph()
-g.print_graph()
+    #Add edges to the graph 
+    g.add_edges(0,1)
+    g.add_edges(0,2)
+    g.add_edges(1,2)
+    g.add_edges(2,0)
+    g.add_edges(2,3)
+    g.add_edges(3,3)
 
+    print("BSF traversal starting from vertex 2")
+
+    g.bfs(2)
