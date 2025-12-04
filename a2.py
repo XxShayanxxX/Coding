@@ -1,21 +1,31 @@
-import heapq    
+from collections import deque
 
-def sortArrayInDecendingOrder(arr):
-    minHeap = []
-    for num in arr:
-        heapq.heappush(minHeap,num)
+def bfs(graph,start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
 
-    result = []
-    while minHeap:
-        top = heapq.heappop(minHeap)
-        result.insert(0,top)
+    while queue:
+        vertex = queue.popleft()
+        print(vertex,end=" ")
 
-    return result
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                queue.append(neighbour)
+                visited.add(neighbour)
 
-if __name__ == '__main__':
-    arr = [4,6,3,2,9]
-    result = sortArrayInDecendingOrder(arr)
 
-    for num in result:
-        print(num,end =" ")
-    print()
+    #Example usage 
+graph = {
+    'A':['B','C'],
+    'B':['A','D','E'],
+    'C':['A','F'],
+    'D':['B'],
+    'E':['B','F'],
+    'F':['C','E']
+
+}
+
+print("BFS travel: ")
+bfs(graph,'A')
+
