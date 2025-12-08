@@ -1,31 +1,39 @@
-from collections import deque
+def dfs(graph,start):
+    """
+    Performs a depth-first search on the given graph, starting at given node 
 
-def bfs(graph,start):
+    Args:
+        graph: The graph to search 
+        start: The node to start the search at 
+
+    Returns:
+        A list of the nodes visited by the search,in the order in which they were visited
+
+    """
+
     visited = set()
-    queue = deque([start])
-    visited.add(start)
+    stack = [start]
 
-    while queue:
-        vertex = queue.popleft()
-        print(vertex,end=" ")
+    while stack:
+        node = stack.pop()
 
-        for neighbour in graph[vertex]:
-            if neighbour not in visited:
-                queue.append(neighbour)
-                visited.add(neighbour)
+        if node not in visited:
+            visited.add(node)
+            for neighbour in graph[node]:
+                stack.append(neighbour)
 
+    return visited
 
-    #Example usage 
 graph = {
-    'A':['B','C'],
-    'B':['A','D','E'],
-    'C':['A','F'],
-    'D':['B'],
-    'E':['B','F'],
-    'F':['C','E']
+    'A' : ['B','C'],
+    'B' : ['D'],
+    'C' : ['E'],
+    'D' : [],
+    'E' : []
 
-}
+}        
 
-print("BFS travel: ")
-bfs(graph,'A')
+visited = dfs(graph,'A')
 
+print(visited)
+        
