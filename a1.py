@@ -1,61 +1,38 @@
-#An iterative python program to do DFS traversal from 
-# a give source vertex. DFS(int s) traverses vertices 
-#reachable from s.
+# A utility function to add an edge in an undirected graph.
+# edge in an undirected graph.
 
-#This class represents a graph using adjacency list represensation
-class Graph:
-    def __init__(self,V):#Constructor 
-        self.V = V 
-        self.adj = [[] for i in range(V)]#adjacency lists 
+def addEdge(adj,u,v):
+    adj[u].append(v)
+    adj[v].append(u)
 
-    def addEdge(self,v,w): #to add an edge to graph 
-        self.adj[v].append(w)
+# A utility function to do DFS of graph 
+# recursively from a given vertex u 
 
-    #prints all not yet visited vertices rechable from s 
-    def DFS(self,s):
-                #Intially mark all the vertices as not visitedd
-        visited = [False for i in range(self.V)]
-
-        #Create stack for DFS
-        stack = []
-
-        #Push the currwent source node.
-        stack.append(s)
-
-        while(len(stack)):
-            #Pop a vertex fro stack and print it 
-            s = stack[-1]
-            stack.pop()
-
-            #Stack may contai same vertex twice so  we need 
-            #to print the popped item onlyt if it is not v
-            #visited 
-
-            if(not(visited[s])):
-                print(s,end =" ")
-                visited[s] = True 
+def DFSUtil(u,adj,visited):
+    visited[u] = True
+    for i in range(len(adj[u])):
+        if(visited[adj[u][i]] == False):
+          DFSUtil(adj[u][i],adj,visited)
 
 
-            #Get all adjacent vertices of the popped vertex s 
-            #If a adjacent hasd not be visited, then push it 
-            #to the $tack
+#Returns count of tree is the 
+#forest given as adjacency list.
 
-            for node in self.adj[s]:
-                if (not visited[node]):
-                    stack.append(node)
+def countTrees(adj,V):
+    visited = [False]*V
+    res = 0 
+    for u in range(V):
+        if(visited[u] == False):
+            DFSUtil(u,adj,visited)
+            res += 1
+    return res
+#Drivers code 
+if __name__ == "__main__":
 
-#Driver program to test methods of graph class 
-g = Graph(5); #Total 5 vertices in graph 
-g.addEdge(1,0)
-g.addEdge(0,2)
-g.addEdge(2,1)
-g.addEdge(0,3)
-g.addEdge(1,4)
+    V = 5 
+    adj = [[]for i in range(V)]
+    addEdge(adj,0,1)
+    addEdge(adj,0,2)
+    addEdge(adj,3,4)
+    print(countTrees(adj,V))
 
-print("Following is depth first traversal")
-g.DFS(0)
-
-
-        
-
-        
