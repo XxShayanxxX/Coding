@@ -1,65 +1,67 @@
-# Python program for Dijkstra's single 
-# source shortest path algorithm. The program is 
-# for adjacency matrix representation of the graph 
+#Number of vertices in the graph 
+V = 4 
 
-# Library for INT_MAX
-import sys 
+#Define infinity as the large 
+#enough value. The value will be 
+#used for vertices not connected to each other 
+INI = 99999
 
-class Graph():
+#Solves all pair shortest pair 
+#via Floyd Warshall Algorithm
 
-    def __init__(self,vertices):
-        self.V = vertices
-        self.graph = [[0 for column in range(vertices)]
-                        for row in range(vertices)]
+def floydWarshall(graph):
+    """ dist[][] will be the output
+    matrix that will finally
+        have the shortest distances
+        between every pair of vertices"""
+    """ initiallizing the solution matrix 
+    same as input graph matrix 
+    OR we can say that the initial 
+    value of shortest distances 
+    are based on shortest paths considering no
+    intermideate vertices """
+
+    dist = list(map(lambda i: list(map(lambda j: j,i)),graph))
+
+    for i in range(V):
+
+        #Pick all vertices as destination for the 
+        #above picked source 
+        for j in range(V):
         
-    def printSolution(self,dist):
-        print("Vertex \t Distance from Source")
-        for node in range(self.V):
-            print(node,"\t",dist[node])
+                for k in range(V):
+                     
 
-    def minDistance(self,dist,sptSet):
+                    #If vertex K is on the shortest path from 
+                    # i to j, then update the value of dist[i][j]
+                    dist[i][j] = min(dist[i][j],
+                        dist[i][k] + dist[k][j]
+                        )
+    printSolution(dist)
 
-        min = sys.maxsize
+# A utility function to print the solution 
+def printSolution(dist):
+    print("Following matrix shows the shortest diostances\ between every pair of vertices")
+    for i in range(V):
+         for j in range(V):
+            if(dist[i][j] == INI):
+               print("%7s" % ("INI"),end=" ")
+            else:
+                print("%7d\t" % (dist[i][j]),end=' ')
+            if j == V-1:
+                print()
 
-        for u in range(self.V):
-            if dist[u] < min and sptSet[u] == False:
-                min = dist[u]
-                min_index = u 
+                print("%7d\t" % (dist[i][j]), end=" ")
+            if j == V-1:
+                print()
 
-        return min_index
-    
-    def dijkstra(self,src):
-
-        dist = [sys.maxsize] * self.V
-        dist[src] = 0 
-        sptSet = [False] * self.V
-
-        for count in range(self.V):
-
-            x = self.minDistance(dist,sptSet)
-
-            #Put the minimum distance vertex in the 
-            #shorest path tree 
-            sptSet[x] = True 
-
-            for y in range(self.V):
-                if self.graph[x][y] > 0 and sptSet[y] == False and \
-                        dist[y] > dist[x] + self.graph[x][y]:
-                    dist[y] = dist[x] + self.graph[x][y]
-
-        self.printSolution(dist)
 
 #Drivers code 
-if __name__ == "__main__":
-    g = Graph(9)
-    g.graph = [[0,4,0,0,0,0,0,8,0],
-               [4,0,8,0,0,0,0,11,0],
-               [0,8,0,7,0,4,0,0,2],
-               [0,0,7,0,9,14,0,0,0],
-               [0,0,0,9,0,10,0,0,0],
-               [0,0,4,14,10,0,2,0,0],
-               [0,0,0,0,0,2,0,1,6],
-               [8,11,0,0,0,0,1,0,7],
-               [0,0,2,0,0,0,6,7,0]]
-    
-    g.dijkstra(0)
+if __name__ =="__main__":
+
+    graph = [[0,5,INI,10],
+        [INI,0,3,INI],
+        [INI,INI,0,1],
+        [INI,INI,INI,0]]
+             
+floydWarshall(graph)
