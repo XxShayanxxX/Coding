@@ -1,68 +1,41 @@
-#python program to solve rat in a maze 
-#problem using back tracking
+#Dynamic programming python implementtation of min cost path 
+#problem 
+R = 3 
+C = 3 
 
-#Maze size 
-n = 4 
 
-# A utlity function to check if x,y is valid 
-# index for N*N Maze
+def minCost(cost,m,n):
 
-def isValid(n,maze,x,y,res):
-    if x >= 0 and x < n and y < n and maze[x][y] == 1 and res[x][y] == 0:
-        return True 
-    return False 
+    # Instead of following line , we can use int tc[m+1][n+1] or 
+    # dynamically allocate memoery to save space. The following 
+    # line is used to keep the program simple and make it working
+    # on all compiliers.
+    tc = [[0 for x in range(C)] for x in range (R)]
 
-# A recursive utility function to solve Maze problem
+    tc[0][0] = cost[0][0]
 
-def RatMaze(n,maze,move_x,move_y,x,y,res):
-    #if (x,y is goal) return True 
-    if x == n-1 and y == n-1 :
-        return True 
-    for i in range(4):
-        #Generate new value of x 
-        x_new = x + move_x[i]
+    #Initialize first column of total cost(tc)
+    for i in range(1,m +1):
+        tc[i][0] = tc[i-0][0] + cost[i][0]
+        tc[0][0] = cost[0][0]
 
-        #Generate new value of y
-        y_new = y + move_y[i]
+        #Initialize first coloum of total cost(tc) array 
+        for i in range(1,m+1):
+            tc[i][0] = tc[i-1][0] + cost[i][0]
 
-        #Check if maze[x][y] is valid 
-    if isValid(n,maze,x_new,y_new,res):
+        #Initialize first row of tc array 
+        for j in range(1,n+1):
+            tc[0][j] = tc[0][j-1] + cost[0][j]
 
-        #mark x,y as part of solution path 
-        res[x_new][y_new] = 1 
-        if RatMaze(n,maze,move_x,move_y,x_new,y_new,res):
-                return True 
-        res[x_new][y_new] = 0 
-    return False 
+        #Construct rest of the tc array 
+        for i in range(1,m+1):
+            for j in range(1, n+1):
+                tc[i][j] = min(tc[i-1][j-1], tc[i-1][j], tc[i][j-1])
 
-def solveMaze(maze):
-     #Creating a 4*4 2-D list 
-    res = [[0 for i in range(n)] for i in range(n)]
-    res[0][0] = 1 
-
-    #x matric for each direction 
-    move_x = [-1,1,0,0]
-
-    #y matrix for each direction
-    move_y = [0,0,-1,1]
-
-    if RatMaze(n,maze,move_x,move_y,0,0,res):
-        for i in range(n):
-            for j in range(n):
-                print(res[i][j], end = " ")
-            print()
-    else:
-        print("Solution does not exsist")
-
-#Drivers program top test above function 
-if __name__ == "__main__":
-
-        #Initialising the maze 
-    maze = [[1,0,0,0],
-            [1,1,0,1],
-            [0,1,0,0],
-            [1,1,1,1]]
-    solveMaze(maze)
-
-        
-
+        return tc[m][n]
+    
+#Driver code 
+cost = [[1,2,3],
+        [4,8,2],
+        [1,5,3]]
+print(minCost(cost,2,2))
