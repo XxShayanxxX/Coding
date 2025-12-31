@@ -1,15 +1,6 @@
-def countways(maze):
-    R,C = len(maze),len(maze[0])
-    dp = [[0]*C for _ in range(R)]
+def subset_sum(a,s):
+    if s == 0: return True
+    if not a: return False
+    return subset_sum(a[1:],s) or subset_sum(a[1:],s-a[0])
 
-    #Start point 
-
-    dp[0][0] = 1 if maze[0][0] == 1 else 0
-
-    for i in range(R):
-        for j in range(C):
-            if maze[i][j] == 0:
-                continue
-
-        if i > 0:
-            dp[i][j]
+print(subset_sum([3,34,4,12,4,2],9))
