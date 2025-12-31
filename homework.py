@@ -1,17 +1,15 @@
-def rmv(text):
-    words = text.split()
-    result = []
+def countways(maze):
+    R,C = len(maze),len(maze[0])
+    dp = [[0]*C for _ in range(R)]
 
-    for letter in words:
-        if letter not in result:
-            result.append(letter)
+    #Start point 
 
-    return " ".join(result)
+    dp[0][0] = 1 if maze[0][0] == 1 else 0
 
-#drivers code 
+    for i in range(R):
+        for j in range(C):
+            if maze[i][j] == 0:
+                continue
 
-inp = input("Enter a string : ")
-print(rmv(inp))
-
-
-            
+        if i > 0:
+            dp[i][j]
