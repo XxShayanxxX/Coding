@@ -1,47 +1,22 @@
-#Function to find the minimum 
-#number of rabbits in the forest 
+def count(coins,n,sum):
 
-def minNumberOfRabbits(answer,N):
+    # If sum is 0 then there is 1 
+    # solution (do not include any coins)
+    if (sum == 0):
+        return 1 
+    
+    # If sum is less than 0 then no 
+    # solution exsist 
+    if (sum < 0):
+        return 0 
+    
+    if (n <= 0):
+        return 0     
+    #count is sum of solution (i)
+    # including coins[n-1] (ii) excluding coins [n-1]
+    return count(coins,n-1,sum) + count(coins,n,sum-coins[n-1])
 
-    #Initialize map
-    map = {}
-
-    #Traverse array and map arr[i]
-    #to the number of occurrences 
-
-    for a in range(N):
-
-        if answer[a] in map:
-            map[answer[a]] += 1 
-        else:
-            map[answer[a]] = 1 
-
-
-    count = 0 
-
-#Find the number groups and 
-#no. of rabbits in each group 
-    for a in map:
-
-        x = a 
-        y = map[a]
-
-            #Find number of groups and 
-            #multiply them with number 
-            #of rabbits in each group 
-        if(y %(x + 1) == 0):
-            count = count + (y // (x + 1)) * (x + 1)
-        else:
-            count = count + ((y // (x + 1 ))+ 1) * (x + 1)
-
-#count gives minimum number 
-#of rabbits in the forest 
-    return count
-
-#Driver code 
-arr = [2,2,0]
-N = len(arr)
-
-#Function Call 
-print(minNumberOfRabbits(arr,N))
-
+#Driver program to test above function 
+coins = [1,2,3]
+n = len(coins)
+print(count(coins,n,4))
