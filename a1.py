@@ -1,10 +1,25 @@
-def factorial_recursive(n):
-    if n == 0:
-        return 1 
+def  coin_change(coins,amount):
+    #Initialize a table to store the maximum number of coins
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0 
+
+    #Solve subproblems  for each amount from 1 to target
+    for i in range(1,amount + 1):
+        #Try using each coin denomination 
+        for coin in coins:
+            if coin <= i:
+                dp[i] = min(dp[i],1 + dp[i-coin])
+
+                
+    if dp[amount] == float('inf'):
+        return -1 
     else:
-        return n * factorial_recursive(n -1)
-    
-#Example ussage 
-n = 7
-result = factorial_recursive(n)
-print(f"The factorial of {n} is: {result}")
+        return dp[amount]
+        
+
+# Example usage 
+coins = [1,2,5]
+amount = 11 
+
+result = coin_change(coins, amount)
+print(f"The minimum number of coins needed : {result}")
