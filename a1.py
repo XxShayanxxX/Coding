@@ -1,25 +1,29 @@
-def  coin_change(coins,amount):
-    #Initialize a table to store the maximum number of coins
-    dp = [float('inf')] * (amount + 1)
-    dp[0] = 0 
+def edit_distance(str1,str2):
+    m = len(str1)
+    n = len(str2)
 
-    #Solve subproblems  for each amount from 1 to target
-    for i in range(1,amount + 1):
-        #Try using each coin denomination 
-        for coin in coins:
-            if coin <= i:
-                dp[i] = min(dp[i],1 + dp[i-coin])
+    #Create a table to store the minimum edit distance 
+    dp = [[0] * (n + 1) for _ in range(m+1)]
 
-                
-    if dp[amount] == float('inf'):
-        return -1 
-    else:
-        return dp[amount]
-        
+    #Initialize the base cases 
+    for i in range(m+1):
+        dp[i][0] = 1 
+    for j in range(n+1):
+        dp[0][j] = j 
 
-# Example usage 
-coins = [1,2,5]
-amount = 11 
+    for i in range(1,m+1):
+        for j in range(1, n + 1):
+            if str1[i-1] == str2[j -1]:
+                dp[i][j] = dp[i -1][j -1]
 
-result = coin_change(coins, amount)
-print(f"The minimum number of coins needed : {result}")
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])
+
+    return dp[m][n]
+
+#Example usage 
+str1 = "kitten"
+str2 = "sitting"
+
+result = edit_distance(str1, str2)
+print(f"The minimum edit distance: {result}")

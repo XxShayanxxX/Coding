@@ -1,22 +1,33 @@
-def count(coins,n,sum):
+def edit_distance(str1,str2,m,n):
 
-    # If sum is 0 then there is 1 
-    # solution (do not include any coins)
-    if (sum == 0):
-        return 1 
+    #If first string is empty , the only option is to 
+    #insert all characters of second string into first 
+    if m == 0:
+        return n 
     
-    # If sum is less than 0 then no 
-    # solution exsist 
-    if (sum < 0):
-        return 0 
-    
-    if (n <= 0):
-        return 0     
-    #count is sum of solution (i)
-    # including coins[n-1] (ii) excluding coins [n-1]
-    return count(coins,n-1,sum) + count(coins,n,sum-coins[n-1])
+    #If second string is empty, the only option is to 
+    #remove all characters of first string. 
 
-#Driver program to test above function 
-coins = [1,2,3]
-n = len(coins)
-print(count(coins,n,4))
+    if n == 0:
+        return m 
+    
+    #If last characters of two string are same, nothing 
+    #much to do. Ignore the last character and get count for
+    #remaining string.
+
+    if str1[m-1] == str2[n-1]:
+        return edit_distance(str1,str2,m-1,m-2)
+    
+    #If last chracter are not same, consider all three 
+    #operations on last character of first string is, recursively 
+    #complete minimum cost for all three operations and take 
+    #minimum of three values.
+
+    return 1+ min(edit_distance(str1,str2,m,n-1),
+                  edit_distance(str1,str2,m-1,n),
+                  edit_distance(str1,str2,m-1,n-1))          
+
+
+str1 = "sunday"
+str2 = "saturday"
+print(edit_distance(str1,str2,len(str1),len(str2)))
